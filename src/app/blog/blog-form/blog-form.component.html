@@ -1,0 +1,48 @@
+<app-nav-manage></app-nav-manage>
+<div class="ml-48 p-4 pt-20">
+  <form [formGroup]='blogForm' (ngSubmit)="onSubmit()">
+    <mat-form-field class="w-full">
+      <mat-label>输入文章标题</mat-label>
+      <input matInput formControlName='title'>
+    </mat-form-field>
+    <mat-form-field class="w-full md:w-1/2">
+      <mat-label>请选择文章类型</mat-label>
+      <mat-select placeholder="请选择文章类型" formControlName='blogType'>
+        <mat-option *ngFor="let type of blogTypes" value="{{type.key}}">{{type.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-full md:w-1/2">
+      <mat-label>请选择文章标签</mat-label>
+      <mat-select placeholder="请选择文章标签" formControlName='tags' multiple>
+        <mat-option *ngFor="let tag of blogTags" value="{{tag.key}}">{{tag.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-label for="form_content">文章内容</mat-label>
+    <div class="md-form">
+      <editor id="form_content" formControlName='content' [init]="conf"></editor>
+    </div>
+    <img *ngIf="blogForm.value.bannerUrl" [src]="blogForm.value.bannerUrl" class="pb-4"
+      style="max-width: 100%;max-height: 150px;">
+    <mat-form-field class="w-full mt-5">
+      <mat-label>展示图片</mat-label>
+      <input matInput formControlName='title' id="form_banner" formControlName='bannerUrl'>
+    </mat-form-field>
+    <mat-form-field class="w-full md:w-1/2">
+      <mat-label>请选择文章标签</mat-label>
+      <mat-select placeholder="请选择隐私类型" formControlName='blogAccess'>
+        <mat-option value="public">公开</mat-option>
+        <mat-option value="private">私密</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-full md:w-1/2">
+      <mat-label>选择发布时间</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName='createdAt'>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+    
+    <label>
+      <button mat-raised-button color="primary" class="w-full" type="submit" [disabled]='!blogForm.valid'>提交</button>
+    </label>
+  </form>
+</div>

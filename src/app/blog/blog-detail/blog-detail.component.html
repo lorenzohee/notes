@@ -1,0 +1,33 @@
+<div class="nav">
+  <app-nav></app-nav>
+</div>
+<div class="container m-auto flex">
+  <div *ngIf="blog$ | async as blog" class="px-10 bg-white w-full">
+    <section class="">
+      <header class="py-4">
+        <h2 class="text-2xl font-weight-bold">{{ blog.title }}</h2>
+        <div class="text-sm mt-3 text-gray-600 font-thin">
+          <span class="mr-2">
+            作者：凉茶
+          </span>
+          <span class="mr-2">
+            分类：{{(blog.blogType || '') | blogType}}
+          </span>
+          <span class="">
+            发布时间：{{blog.createdAt | date:"yyyy-MM-dd"}}
+          </span>
+        </div>
+      </header>
+      <div [innerHTML]="blog.content | htmlFormat:'html' " class="mt-2 text-gray-900 font-thin leading-relaxed"></div>
+      <hr class="my-5" />
+      <div class="pb-5">
+        <i class="fas fa-tags grey-text"></i>
+        <ng-container  *ngFor="let tag of blog.tags">
+          <span class="tag inline-block bg-blue-400 hover:bg-blue-600 font-white px-4 py-1 mx-2 my-1 text-white text-xs" *ngIf="tag != 'recommand'">{{ tag || '' }}</span>
+        </ng-container>
+      </div>
+    </section>
+  </div>
+  <app-sidebar></app-sidebar>
+</div>
+<app-footer></app-footer>

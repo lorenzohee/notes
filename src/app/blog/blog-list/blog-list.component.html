@@ -1,0 +1,30 @@
+<div class="nav">
+  <app-nav></app-nav>
+</div>
+<div class="container m-auto flex">
+  <section class="w-full">
+    <div *ngFor="let blog of blogs$ | async" class="px-10 py-4 bg-white mb-6 shadow-lg">
+      <!-- Grid row -->
+      <div class="flex">
+        <!-- Grid column -->
+        <div>
+          <!-- Post title -->
+          <h2 class="font-bold mb-3 text-2xl"><a [routerLink]="['/blogs', blog._id]">{{blog.title}}</a></h2>
+          <p class="mb-3 text-gray-700 font-thin">
+            - {{blog.createdAt | date:"yyyy-MM-dd"}}
+          </p>
+          <!-- Excerpt -->
+          <p class="text-gray-900 font-thin leading-relaxed">{{ blog.content | htmlFormat:'nohtml' | slice:0:300 }}</p>
+          <!-- Post data -->
+          <p class="mt-3"><a class="font-weight-bold">{{(blog.blogType || '') | blogType}}</a>
+            </p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+    <app-pagination [icur]="currentPage" [total]="blogCount$ | async" *ngIf="blogCount$"></app-pagination>
+  </section>
+  <app-sidebar></app-sidebar>
+</div>
+<app-footer></app-footer>

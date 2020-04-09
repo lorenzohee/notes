@@ -1,0 +1,27 @@
+<app-nav-manage></app-nav-manage>
+<div class="ml-48 p-4 pt-20">
+<form [formGroup]='cfgForm' (ngSubmit)="onSubmit()">
+  <mat-form-field class="w-full">
+    <mat-label>输入标题</mat-label>
+    <input matInput formControlName='title'>
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label>输入关键词</mat-label>
+    <input matInput formControlName='key'>
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label>输入内容</mat-label>
+    <textarea matInput placeholder="输入内容" formControlName='valu'></textarea>
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label>输入备注信息</mat-label>
+    <textarea matInput placeholder="输入备注信息" formControlName='note'></textarea>
+  </mat-form-field>
+  <label class="mr-10">
+    <button mat-raised-button color="primary" class="mx-2" type="submit" [disabled]='!cfgForm.valid'>Submit</button>
+  </label>
+  <label for="">
+    <button mat-raised-button color="default" type="button" (click)="goback()">Go Back</button>
+  </label>
+</form>
+</div>
