@@ -5,6 +5,7 @@ import { BlogIndexComponent } from '../blog/blog-index/blog-index.component';
 import { BlogFormComponent } from '../blog/blog-form/blog-form.component';
 import { CfgListComponent } from '../cfg/cfg-list/cfg-list.component';
 import { CfgFormComponent } from '../cfg/cfg-form/cfg-form.component';
+import { CommentIndexComponent } from '../comments/comment-index/comment-index.component';
 
 const routes: Routes = [{
   path: '',
@@ -36,6 +37,9 @@ const routes: Routes = [{
 },{
   path: '*',
   redirectTo: 'blogs'
+}, {
+  path: 'comments',
+  component: CommentIndexComponent
 }];
 
 @NgModule({

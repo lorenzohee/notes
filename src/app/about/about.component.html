@@ -1,0 +1,120 @@
+<div class="nav fixed w-full">
+  <app-nav></app-nav>
+</div>
+<img src="../../assets/img/frontend.jpg" alt="" class="w-full">
+<div class="container m-auto bg-white text-gray-900 px-12 py-4">
+  <div class="py-12">
+    <blockquote class="py-2 border-l-4 border-gray-300 px-4 italic font-bold">
+      The value of life lies not length of days, but in the use of we make of them.
+    </blockquote>
+  </div>
+  <div class="leading-9 text-gray-600">
+    <p>Hi，this is lorenzo. I’m a senior front-end web engineer from QingDao, CHINA. I work in the Haier industry and love what I do</p>
+    <p>A front-end web engineer is responsible for implementing visual elements that users see and interact with in a web application.</p>
+    <p>We are focused on building the UI (User interfaces) for the users of our website or web application.</p>
+    <strong>My Skill Set:</strong>
+    <ul>
+      <li class="ml-2 italic">
+        Proficient understanding of web markup, including HTML5, CSS3
+      </li>
+      <li class="ml-2 italic">
+        Proficient understanding of server-side CSS pre-processing platforms, such as SCSS
+      </li>
+      <li class="ml-2 italic">
+        Proficient understanding of client-side scripting and JavaScript frameworks, including jQuery
+      </li>
+      <li class="ml-2 italic">
+        Proficient understanding of cross-browser compatibility issues and ways to work around them
+      </li>
+      <li class="ml-2 italic">
+        Proficient understanding of advanced JavaScript libraries and frameworks, such as Angular2, VUEJS, Bootstrap
+      </li>
+      <li class="ml-2 italic">
+        Basic understanding of back-end technology, such as express, koa and nodejs.
+      </li>
+    </ul>
+    <p class="mt-4">I'm looking forward to be a Full Stack Web Developer.</p>
+    <p>That's all, GOOD LUCK</p>
+  </div>
+  <div>
+    <label for="" class="text-xl">Social</label>
+    <div class="pb-4">
+      <a href="#">
+        <i class="fab fa-twitter mr-2 border p-2 rounded-full"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/%E6%B0%B8%E6%B8%85-%E4%BD%95-2ab982102" title="Lorenzo" target="_blank">
+        <i class="fab fa-linkedin mx-2 border p-2 rounded-full"></i>
+      </a>
+      <a href="#">
+        <i class="fab fa-instagram mx-2 border p-2 rounded-full"></i>
+      </a>
+      <a href="https://github.com/lorenzohee" target="_blank" title="lorenzohee">
+        <i class="fab fa-github-alt mx-2 border p-2 rounded-full"></i>
+      </a>
+      <a href="mailto:yongqinghee@gmail.com" title="yongqinghee@gmail.com">
+        <i class="fa fa-envelope mx-2 border p-2 rounded-full"></i>
+      </a>
+    </div>
+  </div>
+  <div class="w-full border flex mb-20 mt-12">
+    <!--Form with header-->
+    <mat-card class="flex-1" style="box-shadow: none;">
+      <mat-card-content class="mx-4">
+        <form [formGroup]='commentForm' (ngSubmit)="onSubmit()">
+          <mat-form-field class="w-100" style="display: block;">
+            <mat-label>Leave me a message</mat-label>
+            <textarea id="comment-body" class="md-textarea form-control" rows="5" matInput
+            formControlName='body' placeholder="Ex. It makes me feel..."></textarea>
+          </mat-form-field>
+          <!--Grid row-->
+          <div class="d-flex w-100 mb-3 mt-4">
+            <mat-form-field class="example-full-width mr-5">
+              <mat-label>name</mat-label>
+              <input matInput placeholder="Enzo" formControlName='name'>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="example@xxx.com" formControlName='email'>
+            </mat-form-field>
+            <!--Grid column-->
+            <div class="float-right">
+              <button type="submit" mat-raised-button color="primary" rounded="true" [disabled]='!commentForm.valid'
+                class="z-depth-1a">SEND</button>
+            </div>
+            <!--Grid column-->
+          </div>
+        </form>
+        <!--Grid row-->
+      </mat-card-content>
+    </mat-card>
+    <!--/Form with header-->
+    <div class="card-body contact text-center h-100  text-white bg-pink-400 w-1/3 hidden">
+      <h3 class="my-4 pb-2 text-2xl">My Information</h3>
+      <ul class="text-left list-unstyled ml-4 font-thin">
+        <li class="py-2">
+          <p>
+            <i class="fa fa-marker mr-3"></i>QingDao Shandong，China
+          </p>
+        </li>
+        <li class="py-2">
+          <p>
+            <i class="fa fa-phone-alt mr-3"></i>+86 185 6129 8542
+          </p>
+        </li>
+        <li class="py-2">
+          <p>
+            <i class="fa fa-envelope mr-3"></i>yongqinghee@gmail.com
+          </p>
+        </li>
+      </ul>
+      <div class="py-4">
+        <i class="fab fa-twitter mx-2"></i>
+        <i class="fab fa-linkedin mx-2"></i>
+        <i class="fab fa-instagram mx-2"></i>
+        <i class="fab fa-github-alt mx-2"></i>
+        <i class="fab fa-google-plus-g"></i>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

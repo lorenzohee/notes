@@ -6,8 +6,8 @@ const commentSchema = Joi.object({
   body: Joi.string().required(),
   email: Joi.string().email(),
   name: Joi.string().required(),
-  parent_id: Joi.string().required(),
-  parent_type: Joi.string().required()
+  parent_id: Joi.string(),
+  parent_type: Joi.string()
 })
 
 
@@ -26,8 +26,14 @@ async function index (obj) {
     page = obj.page;
     delete obj.page
   }
-  let pageNum = config.paginationNum;
-  return await Comment.find(obj).sort({ '_id': -1 }).skip((page - 1) * pageNum).limit(pageNum);
+  let pageNum =  obj.pageNum || config.paginationNum;
+  
+  if (obj.count) {
+    delete obj.count
+    return await Comment.find(obj).countDocuments();
+  } else {
+    return await Comment.find(obj).sort({ '_id': -1 }).skip((page - 1) * pageNum).limit(pageNum);
+  }
 }
 
 async function detail (id) {

@@ -1,0 +1,31 @@
+<!-- Section: Social newsfeed v.2 -->
+<section class="my-5 px-8">
+  <!-- Grid row -->
+  <div class="row">
+    <!-- Grid column -->
+    <div class="col-lg-12" *ngFor="let comment of comments">
+      <!-- Newsfeed -->
+      <div class="mdb-feed">
+        <!-- Fourth news -->
+        <div class="news">
+          <!-- Excerpt -->
+          <div class="excerpt">
+            <!-- Brief -->
+            <div class="brief">
+              <a class="name">{{comment.name}}</a> Said
+              <div class="date">{{comment.createdAt | date: 'shortDate'}}</div>
+            </div>
+            <!-- Added text -->
+            <pre class="added-text">{{comment.body}}</pre>
+          </div>
+
+        </div>
+        <!-- Fourth news -->
+      </div>
+      <!-- Newsfeed -->
+    </div>
+    <!-- Grid column -->
+  </div>
+  <!-- Grid row -->
+</section>
+<!-- Section: Social newsfeed v.2 -->

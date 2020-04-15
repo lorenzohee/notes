@@ -87,7 +87,6 @@ app.use((req, res, next) => {
 
 // error handler, send stacktrace only during development
 app.use((err, req, res, next) => {
-
   // customize Joi validation errors
   if (err.isJoi) {
     err.message = err.details.map(e => e.message).join("; ");

@@ -14,6 +14,14 @@ module.exports = {
   insert, index, update, destroy, detail, count, getCfgByKey
 }
 
+/**
+ * @description
+ * @author (Set the text for this tag by adding docthis.authorName to your settings file.)
+ * @date 2020-04-14
+ * @param {*} cfg
+ * @TODO: 验证对象，错误抛出
+ * @returns
+ */
 async function insert (cfg) {
   cfg = await Joi.validate(cfg, cfgSchema, { abortEarly: false });
   return await new Cfg(cfg).save();
@@ -25,12 +33,12 @@ async function index (obj) {
     page = obj.page;
     delete obj.page
   }
-  let pageNum = config.paginationNum;
+  let pageNum = obj.pageNum || config.paginationNum;
   if (obj.count) {
     delete obj.count
     return await Cfg.find(obj).countDocuments();
   } else {
-    return await Cfg.find(obj).sort({ '_id': -1 });
+    return await Cfg.find(obj).sort({ '_id': -1 }).skip((page - 1) * pageNum).limit(pageNum);
   }
 }
 

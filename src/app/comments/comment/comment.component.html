@@ -1,0 +1,37 @@
+<!-- Section: form gradient -->
+<section class="form-gradient mb-5">
+  <!--Form with header-->
+  <mat-card style="box-shadow: none;">
+    <mat-card-content class="mx-4">
+      <form [formGroup]='commentForm' (ngSubmit)="onSubmit()">
+        <mat-form-field class="w-100" style="display: block;">
+          <mat-label>Leave a comment</mat-label>
+          <textarea id="comment-body" class="md-textarea form-control" rows="5" matInput
+          formControlName='body' placeholder="Ex. It makes me feel..."></textarea>
+        </mat-form-field>
+        <!--Grid row-->
+        <div class="d-flex w-100 mb-3 mt-4">
+          <mat-form-field class="example-full-width mr-5">
+            <mat-label>name</mat-label>
+            <input matInput placeholder="Enzo" formControlName='name'>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="example@xxx.com" formControlName='email'>
+          </mat-form-field>
+          <!--Grid column-->
+          <div class="float-right">
+            <button type="submit" mat-raised-button color="primary" rounded="true" [disabled]='!commentForm.valid'
+              class="z-depth-1a">SEND</button>
+          </div>
+          <!--Grid column-->
+        </div>
+      </form>
+      <!--Grid row-->
+    </mat-card-content>
+  </mat-card>
+  <!--/Form with header-->
+
+</section>
+<!-- Section: form gradient -->
+<app-comment-item [comments]="comments"></app-comment-item>

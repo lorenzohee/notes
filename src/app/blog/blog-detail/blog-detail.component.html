@@ -8,13 +8,13 @@
         <h2 class="text-2xl font-weight-bold">{{ blog.title }}</h2>
         <div class="text-sm mt-3 text-gray-600 font-thin">
           <span class="mr-2">
-            作者：凉茶
+            Author: Lorenzo
           </span>
           <span class="mr-2">
-            分类：{{(blog.blogType || '') | blogType}}
+            Category：{{(blog.blogType || '') | blogType}}
           </span>
           <span class="">
-            发布时间：{{blog.createdAt | date:"yyyy-MM-dd"}}
+            Publish time：{{blog.createdAt | date:"yyyy-MM-dd"}}
           </span>
         </div>
       </header>
@@ -26,6 +26,9 @@
           <span class="tag inline-block bg-blue-400 hover:bg-blue-600 font-white px-4 py-1 mx-2 my-1 text-white text-xs" *ngIf="tag != 'recommand'">{{ tag || '' }}</span>
         </ng-container>
       </div>
+    </section>
+    <section class="my-5 px-0">
+      <app-comment [blog_id]="blog._id" blog_type="Blog"></app-comment>
     </section>
   </div>
   <app-sidebar></app-sidebar>

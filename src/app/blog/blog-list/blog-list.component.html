@@ -4,22 +4,24 @@
 <div class="container m-auto flex">
   <section class="w-full">
     <div *ngFor="let blog of blogs$ | async" class="px-10 py-4 bg-white mb-6 shadow-lg">
-      <!-- Grid row -->
-      <div class="flex">
-        <!-- Grid column -->
-        <div>
-          <!-- Post title -->
-          <h2 class="font-bold mb-3 text-2xl"><a [routerLink]="['/blogs', blog._id]">{{blog.title}}</a></h2>
-          <p class="mb-3 text-gray-700 font-thin">
-            - {{blog.createdAt | date:"yyyy-MM-dd"}}
-          </p>
-          <!-- Excerpt -->
-          <p class="text-gray-900 font-thin leading-relaxed">{{ blog.content | htmlFormat:'nohtml' | slice:0:300 }}</p>
-          <!-- Post data -->
-          <p class="mt-3"><a class="font-weight-bold">{{(blog.blogType || '') | blogType}}</a>
-            </p>
+      <!-- Grid column -->
+      <div class="">
+        <!-- Post title -->
+        <h2 class="font-bold mb-3 text-2xl"><a [routerLink]="['/blogs', blog._id]">{{blog.title}}</a></h2>
+        <p class="mb-3 text-gray-700 font-thin">
+          - {{blog.createdAt | date:"yyyy-MM-dd"}}
+        </p>
+        <!-- Excerpt -->
+        <div class="flex">
+          <div class="w-64 overflow-hidden mr-6" *ngIf="blog.bannerUrl != ''">
+            <img class="w-full" src="{{blog.bannerUrl}}" alt="image">
+          </div>
+          <div class="text-gray-900 font-thin leading-relaxed flex-1">{{ blog.content | htmlFormat:'nohtml' | slice:0:300 }}</div>
         </div>
-        <!-- Grid column -->
+        <div class="my-4">
+          <a [routerLink]="['/blogs', {blogType: blog.blogType}]" class="text-blue-400 font-weight-bold hover:text-blue-800">{{(blog.blogType || '') | blogType}}</a>
+          <a [routerLink]="['/blogs', blog._id]" class="float-right inline-block text-blue-400 font-weight-bold hover:text-blue-800">View More</a>
+        </div>
       </div>
       <!-- Grid row -->
     </div>

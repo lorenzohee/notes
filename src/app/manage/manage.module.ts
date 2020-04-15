@@ -9,6 +9,7 @@ import { NavManageComponent } from '../header/nav-manage/nav-manage.component';
 import { BlogIndexComponent } from '../blog/blog-index/blog-index.component';
 import { SharedModule } from '../shared/shared.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { CommentIndexComponent } from '../comments/comment-index/comment-index.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     CfgListComponent,
     CfgFormComponent,
     NavManageComponent,
-    BlogIndexComponent
+    BlogIndexComponent,
+    CommentIndexComponent
   ],
   imports: [
     CommonModule,

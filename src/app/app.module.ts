@@ -14,6 +14,9 @@ import { CatchErrorInterceptor } from './interceptors/http-error.interceptor';
 import { BlogTypePipe } from './pipe/blog-type.pipe';
 import { NavComponent } from './header/nav/nav.component';
 import { SidebarComponent } from './header/sidebar/sidebar.component';
+import { CommentComponent } from './comments/comment/comment.component';
+import { CommentItemComponent } from './comments/comment-item/comment-item.component';
+import { AboutComponent } from './about/about.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +25,9 @@ import { SidebarComponent } from './header/sidebar/sidebar.component';
     BlogDetailComponent,
     NavComponent,
     SidebarComponent,
+    CommentComponent,
+    CommentItemComponent,
+    AboutComponent, 
   ],
   imports: [
     BrowserModule,

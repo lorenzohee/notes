@@ -14,7 +14,8 @@ const CfgSchema = new mongoose.Schema({
     required: true
   },
   note: {
-    type: String
+    type: String,
+    required: true
   },
   createdAt: {
     type: Date,

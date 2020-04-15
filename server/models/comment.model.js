@@ -17,12 +17,10 @@ const CommentSchema = new mongoose.Schema({
     type: String
   },
   parent_id: {
-    type: String,
-    required: true
+    type: String
   },
   parent_type: {
-    type: String,
-    required: true
+    type: String
   },
   createdAt: {
     type: Date,

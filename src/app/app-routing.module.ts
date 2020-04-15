@@ -4,12 +4,16 @@ import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
 import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [{
   path: '',
   redirectTo: '/blogs',
   pathMatch: 'full'  
-},{
+}, {
+  path: 'about',
+  component: AboutComponent
+}, {
   path: 'blogs',
   children: [
     {
@@ -33,7 +37,7 @@ const routes: Routes = [{
   loadChildren: () => LoginComponent,
   canLoad: [AuthGuard]
 }, {
-  path: '*',
+  path: '**',
   redirectTo: 'blogs'
 }];
 
