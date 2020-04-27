@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Comment } from '../comment';
+import { of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { CommentService } from '../comment.service';
@@ -16,7 +15,6 @@ export class CommentIndexComponent implements OnInit {
   displayedColumns: string[] = ['name', 'body', 'email', 'parent_type', 'createdAt'];
   columnsToDisplay: string[] = ['name', 'body', 'email', 'parent_id', 'parent_type', 'createdAt', 'action'];
   dataSource = new MatTableDataSource();
-  comments: Comment[] = []
   commentCount = '0';
   currentPage = 1;
   listParam: any = {
@@ -32,26 +30,18 @@ export class CommentIndexComponent implements OnInit {
           page: (params.get('page') && parseInt(params.get('page'))) || 1
         }
         this.currentPage = Number.parseInt(params.get('page') || '1');
-        return this.commentService.getComments(this.listParam)
+        this.getCommentData()
+        this.getCommentCount()
+        return of()
       })
-    ).subscribe(res=>{
-      this.comments = res;
-      this.dataSource = new MatTableDataSource<Comment>(res);
-    })
-    this.route.paramMap.pipe(
-      switchMap(params => {
-        return this.commentService.getCommentsCount(this.listParam)
-      })
-    ).subscribe(res=>{
-      this.commentCount = res
-    })
+    ).subscribe();
   }
 
   deleteComment(id) {
     if (confirm('确认要删除此评论吗？')) {
       this.commentService.deleteCommentById(id).subscribe(res => {
-        this.comments = this.comments.filter(ele=>ele._id != res._id)
-        this.dataSource = new MatTableDataSource<Comment>(this.comments);
+        this.getCommentData()
+        this.getCommentCount()
       })
     }
   }
@@ -61,9 +51,18 @@ export class CommentIndexComponent implements OnInit {
       page: pageEvent.pageIndex + 1
     }
     this.currentPage = pageEvent.pageIndex + 1;
+    this.getCommentData()
+  }
+
+  getCommentData() {
     this.commentService.getComments(this.listParam).subscribe(res=>{
-      this.comments = res;
-      this.dataSource = new MatTableDataSource<Comment>(res);
+      this.dataSource.data = res;
+    })
+  }
+
+  getCommentCount() {
+    this.commentService.getCommentsCount(this.listParam).subscribe(res=>{
+      this.commentCount = res
     })
   }
 }

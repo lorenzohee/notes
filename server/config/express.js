@@ -1,7 +1,6 @@
 const path = require('path');
 const express = require('express');
 const httpError = require('http-errors');
-const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const compress = require('compression');
@@ -13,8 +12,7 @@ const swaggerDocument = require('./swagger.json');
 const routes = require('../routes/index.route');
 const config = require('./config');
 const passport = require('./passport')
-var fs = require('fs');//文件模块
-var FileStreamRotator = require('file-stream-rotator');
+const setLogger = require('./logger')
 
 if (config.env !== 'development') {
   const { enableProdMode } = require('@angular/core');
@@ -23,30 +21,11 @@ if (config.env !== 'development') {
 
 const app = express();
 
-//设置日志文件目录
-var logDirectory = path.join(__dirname, '../logs');
-//确保日志文件目录存在 没有则创建
-fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
-//创建一个写路由
-var accessLogStream = FileStreamRotator.getStream({
-  filename: logDirectory + '/notes-%DATE%.log',
-  frequency: 'daily',
-  verbose: false
-})
-
-// 自定义token
-logger.token('from', function (req, res) {
-  return req.query.from || '-';
-});
-// 自定义format，其中包含自定义的token
-logger.format('joke', '[joke] :method :url :status :from');
-
 if (config.env === 'development') {
-  // 使用自定义的format
-  app.use(logger('joke'));
+  setLogger(app, 'joke')
+}else {
+  setLogger(app, 'combined')
 }
-
-app.use(logger('combined', { stream: accessLogStream }));//写入日志文件
 
 var distDir = '../../dist/';
 
@@ -74,8 +53,10 @@ app.use(cors());
 
 app.use(passport.initialize());
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
+// swagger initial
+if (config.env === 'development') {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+}
 // API router
 app.use('/api/', routes);
 
@@ -87,6 +68,7 @@ app.use((req, res, next) => {
 
 // error handler, send stacktrace only during development
 app.use((err, req, res, next) => {
+  setLogger(app, 'combined', err.message)
   // customize Joi validation errors
   if (err.isJoi) {
     err.message = err.details.map(e => e.message).join("; ");

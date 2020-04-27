@@ -19,7 +19,7 @@ export class CfgFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private cfgService: CfgService, private router: Router, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
-    // this.getCfgById()
+    this.getCfgById()
   }
 
   onSubmit() {
@@ -38,18 +38,11 @@ export class CfgFormComponent implements OnInit {
     if (id) {
       this.cfgService.getCfgById(id).subscribe(res => {
         this.cfgForm = this.fb.group({
-          _id: [''],
-          title: ['', Validators.required],
-          key: ['', Validators.required],
-          valu: ['', Validators.required],
-          note: ['']
-        })
-        this.cfgForm.patchValue({
-          _id: res._id,
-          title: res.title,
-          key: res.key,
-          valu: res.valu,
-          note: res.note
+          _id: [res._id],
+          title: [res.title, Validators.required],
+          key: [res.key, Validators.required],
+          valu: [res.valu, Validators.required],
+          note: [res.note]
         })
       })
     }

@@ -43,6 +43,7 @@ async function index (obj) {
   }
   if (obj.count) {
     delete obj.count
+    delete obj.page
     return await Blog.find(obj).countDocuments();
   } else {
     return await Blog.find(obj).sort({ 'createdAt': -1 }).skip((page - 1) * pageNum).limit(pageNum);

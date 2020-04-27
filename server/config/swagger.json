@@ -19,6 +19,18 @@
       {
         "name": "Auth",
         "description": "API for auth in the system"
+      },
+      {
+        "name": "Cfg",
+        "description": "API for cfg in the system"
+      },
+      {
+        "name": "Blog",
+        "description": "API for blog in the system"
+      },
+      {
+        "name": "Comment",
+        "description": "API for comment in the system"
       }
     ],
     "schemes": [
@@ -42,35 +54,238 @@
         "post": {
           "tags": ["Auth"],
           "description": "Login to the system",
-        "parameters": [{
-          "name": "auth",
-          "in": "body",
-          "description": "User auth details",
-          "schema": {
-            "type": "object",
-            "required": ["email", "password"],
-            "properties": {
-              "email": {
-                "type": "string"
-              },
-              "password": {
-                "type": "string"
+          "parameters": [{
+            "name": "auth",
+            "in": "body",
+            "description": "User auth details",
+            "schema": {
+              "type": "object",
+              "required": ["email", "password"],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "User is loggedin",
+              "schema": {
+                "$ref": "#/definitions/User"
               }
             }
           }
-        }],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "User is loggedin",
+        }
+      },
+      "/cfgs":{
+        "get": {
+          "tags": ["Cfg"],
+          "description": "Get cfgs list",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "get cfgs success!",
+              "schema": {
+                "$ref": "#/definitions/Cfgs"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": ["Cfg"],
+          "description": "Create new Cfg",
+          "parameters": [{
+            "name": "Create",
+            "in": "body",
+            "description": "Create cfg params",
             "schema": {
-              "$ref": "#/definitions/User"
+              "type": "object",
+              "required": ["title", "key", "valu"],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "valu": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                }
+              }
+            }
+          }],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "schema": {
+                "$ref": "#/definitions/Cfg"
+              }
             }
           }
         }
-      }
+      },
+      "/cfgs/:id":{
+        "delete": {
+          "tags": ["Cfg"],
+          "description": "delete cfgs item",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "get cfgs success!",
+              "schema": {
+                "$ref": "#/definitions/Cfgs"
+              }
+            }
+          }
+        }
+      },
+      "/blogs":{
+        "get": {
+          "tags": ["Blog"],
+          "description": "Get blogs list",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "get blogs success!",
+              "schema": {
+                "$ref": "#/definitions/Blogs"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": ["Blog"],
+          "description": "Create new Blog",
+          "parameters": [{
+            "name": "Create",
+            "in": "body",
+            "description": "Create blog params",
+            "schema": {
+              "type": "object",
+              "required": ["title", "content"],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "blogType": {
+                  "type": "string"
+                },
+                "bannerUrl": {
+                  "type": "string"
+                },
+                "blogAccess": {
+                  "type": "string"
+                }
+              }
+            }
+          }],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "schema": {
+                "$ref": "#/definitions/Blog"
+              }
+            }
+          }
+        }
+      },
+      "/blogs/:id": {
+        "put": {
+          "tags": ["Blog"],
+          "description": "update blog",
+          "parameters": [{
+            "name": "Update",
+            "in": "body",
+            "description": "update blog params",
+            "schema": {
+              "type": "object",
+              "required": ["title", "content"],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "blogType": {
+                  "type": "string"
+                },
+                "bannerUrl": {
+                  "type": "string"
+                },
+                "blogAccess": {
+                  "type": "string"
+                }
+              }
+            }
+          }],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "description": "update blogs success!",
+            "200": {
+              "schema": {
+                "$ref": "#/definitions/Blog"
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Blog"],
+          "description": "delete blog item",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "delete blog success!",
+              "schema": {
+                "$ref": "#/definitions/Blog"
+              }
+            }
+          }
+        }
+      },
+      "/comments":{
+        "get": {
+          "tags": ["Comment"],
+          "description": "Get comments list",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "get comments success!",
+              "schema": {
+                "$ref": "#/definitions/Comments"
+              }
+            }
+          }
+        }
       }
     },
     "definitions": {
@@ -116,6 +331,104 @@
             "$ref": "#/definitions/User"
           }
         }]
+      },
+      "Cfg": {
+        "required": [
+          "key",
+          "valu",
+          "title"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "key": {
+            "type": "string"
+          },
+          "valu": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        }
+      },
+      "Cfgs": {
+        "type": "array",
+        "$ref": "#/definitions/Cfg"
+      },
+      "Blog": {
+        "required": [
+          "title",
+          "content"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "bannerUrl": {
+            "type": "string"
+          },
+          "blogAccess": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        }
+      },
+      "Blogs": {
+        "type": "array",
+        "$ref": "#/definitions/Blog"
+      },
+      "Comment": {
+        "required": [
+          "name",
+          "email",
+          "body"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "comment_id": {
+            "type": "string"
+          },
+          "parent_id": {
+            "type": "string"
+          },
+          "parent_type": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        }
+      },
+      "Comments": {
+        "type": "array",
+        "$ref": "#/definitions/Comment"
       }
   }
 }

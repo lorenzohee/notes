@@ -12,8 +12,8 @@
           - {{blog.createdAt | date:"yyyy-MM-dd"}}
         </p>
         <!-- Excerpt -->
-        <div class="flex">
-          <div class="w-64 overflow-hidden mr-6" *ngIf="blog.bannerUrl != ''">
+        <div class="sm:flex">
+          <div class="sm:w-64 overflow-hidden sm:mr-6 mb-4 sm:mb-0" *ngIf="blog.bannerUrl != ''">
             <img class="w-full" src="{{blog.bannerUrl}}" alt="image">
           </div>
           <div class="text-gray-900 font-thin leading-relaxed flex-1">{{ blog.content | htmlFormat:'nohtml' | slice:0:300 }}</div>

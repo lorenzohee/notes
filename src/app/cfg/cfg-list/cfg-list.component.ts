@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CfgService } from '../cfg.service';
-import { Cfg } from '../cfg';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import {MatTableDataSource} from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-cfg-list',
@@ -29,24 +29,18 @@ export class CfgListComponent implements OnInit {
           page: (params.get('page') && parseInt(params.get('page'))) || 1
         }
         this.currentPage = Number.parseInt(params.get('page') || '1');
-        return this.cfgService.getCfgList(this.listParam)
+        this.getCfgData();
+        this.getCfgCount();
+        return of()
       })
-    ).subscribe(res=>{
-      this.dataSource = new MatTableDataSource<Cfg>(res);
-    })
-    this.route.paramMap.pipe(
-      switchMap(params => {
-        return this.cfgService.getCfgCount(this.listParam)
-      })
-    ).subscribe(res=>{
-      this.cfgCount = res
-    })
+    ).subscribe()
   }
 
   deleteCfg(id) {
     if (confirm('确认要删除此cfg吗？')) {
       this.cfgService.deleteCfgById(id).subscribe(res => {
-        // this.cfgs$ = this.cfgService.getCfgList({ page: this.currentPage })
+        this.getCfgData();
+        this.getCfgCount();
       })
     }
   }
@@ -56,8 +50,18 @@ export class CfgListComponent implements OnInit {
       page: pageEvent.pageIndex + 1
     }
     this.currentPage = pageEvent.pageIndex + 1;
+    this.getCfgData()
+  }
+
+  getCfgData() {
     this.cfgService.getCfgList(this.listParam).subscribe(res=>{
-      this.dataSource = new MatTableDataSource<Cfg>(res);
+      this.dataSource.data = res;
+    })
+  }
+
+  getCfgCount(){
+    this.cfgService.getCfgCount(this.listParam).subscribe(res=>{
+      this.cfgCount = res
     })
   }
 }
