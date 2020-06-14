@@ -25,6 +25,9 @@ export class BlogService {
     if (obj.blogNum) {
       params = params.set('blogNum', obj.blogNum)
     }
+    if (obj.search) {
+      params = params.set('search', obj.search)
+    }
     return this.baseService.get({ url: 'api/blogs', params: params })
   }
 
@@ -38,6 +41,9 @@ export class BlogService {
     }
     if (obj.blogNum) {
       params = params.set('blogNum', obj.blogNum)
+    }
+    if (obj.search) {
+      params = params.set('search', obj.search)
     }
     return this.baseService.get({ url: 'api/blogs', params: params })
   }

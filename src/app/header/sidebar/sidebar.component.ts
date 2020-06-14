@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BlogService } from '../../blog/blog.service';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,8 @@ export class SidebarComponent implements OnInit {
 
   tagCloud$: Observable<string[]>;
   articleTypes$: Observable<any>;
-  constructor(private blogService: BlogService) { }
+  value = ''
+  constructor(private blogService: BlogService, private router: Router) { }
 
   ngOnInit(): void {
     this.getSiteTags()
@@ -25,6 +27,10 @@ export class SidebarComponent implements OnInit {
 
   getArticlesByType() {
     this.articleTypes$ = this.blogService.getArticlesByType();
+  }
+
+  searchBlog(){
+    this.router.navigate(['/blogs',{search: this.value}])
   }
 
 }

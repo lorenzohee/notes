@@ -41,6 +41,10 @@ async function index (obj) {
   if (obj.tags) {
     obj.tags = { $all: obj.tags.split(',') }
   }
+  if(obj.search) {
+    obj.title = {$regex: obj.search}
+    delete obj.search
+  }
   if (obj.count) {
     delete obj.count
     delete obj.page

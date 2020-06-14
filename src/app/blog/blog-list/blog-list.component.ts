@@ -29,7 +29,8 @@ export class BlogListComponent implements OnInit {
         let listParam = {
           page: params.get('page') || 1,
           blogType: params.get('blogType'),
-          tags: params.get('tags')
+          tags: params.get('tags'),
+          search: params.get('search')
         }
         this.currentPage = Number.parseInt(params.get('page') || '1');
         window.scrollTo(0, 0);
@@ -39,6 +40,7 @@ export class BlogListComponent implements OnInit {
     this.blogCount$ = this.route.paramMap.pipe(
       switchMap(params => {
         let listParam = {
+          search: params.get('search'),
           blogType: params.get('blogType'),
           tags: params.get('tags')
         }
